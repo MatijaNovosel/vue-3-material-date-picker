@@ -1,0 +1,55 @@
+.picker-transition,
+.picker-reverse-transition {
+  &-enter-active,
+  &-leave-active {
+    transition: 0.3s cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+
+  &-leave,
+  &-leave-active,
+  &-leave-to {
+    position: absolute !important;
+  }
+}
+
+.picker-transition {
+  &-enter {
+    transform: translate(0, 100%);
+  }
+
+  &-leave-to {
+    transform: translate(0, -100%);
+  }
+}
+
+.picker-reverse-transition {
+  &-enter {
+    transform: translate(0, -100%);
+  }
+
+  &-leave-to {
+    transform: translate(0, 100%);
+  }
+}
+
+.tab-transition {
+  &-enter {
+    transform: translate(100%, 0);
+  }
+
+  &-leave,
+  &-leave-active {
+    position: absolute;
+    top: 0;
+  }
+
+  &-leave-to {
+    position: absolute;
+    transform: translate(-100%, 0);
+  }
+}
