@@ -3,15 +3,15 @@
     <tbody>
       <tr v-for="(r, i) in rows" :key="i">
         <td v-for="(d, j) in r" :key="j">
-          <v-btn
-            variant="text"
+          <button
+            class="button"
             @click="emit('input', d)"
             :class="{
               [`bg-${color || 'accent'}`]: isSelected(d)
             }"
           >
             {{ formatter!(d) }}
-          </v-btn>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -98,15 +98,15 @@ const rows = computed(() => {
     font-size: $date-picker-table-font-size
     color: rgba(0,0,0,.38)
 
-  &--date .v-btn
+  &--date .button
     height: $date-picker-table-date-button-height
 
-  .v-btn
+  .button
     z-index: auto
     margin: 0
     font-size: $date-picker-table-font-size
 
-    &.v-btn--active
+    &.button--active
       color: $date-picker-table-active-date-color
 
 .v-date-picker-table--month

@@ -1,26 +1,16 @@
 <template>
-  <div class="v-date-picker-header" :class="classes">
-    <v-btn
-      icon
-      variant="flat"
-      density="compact"
-      @click="emit('input', calculateChange(-1))"
-    >
-      <v-icon> mdi-chevron-left </v-icon>
-    </v-btn>
-    <div class="v-date-picker-header__value">
-      <v-btn variant="plain" @click="emit('toggle')">
+  <div class="date-picker-header" :class="classes">
+    <button class="button" @click="emit('input', calculateChange(-1))">
+      &lt;
+    </button>
+    <div class="date-picker-header__value">
+      <button class="button" @click="emit('toggle')">
         {{ formatter!(value.toString()) }}
-      </v-btn>
+      </button>
     </div>
-    <v-btn
-      icon
-      variant="flat"
-      density="compact"
-      @click="emit('input', calculateChange(1))"
-    >
-      <v-icon> mdi-chevron-right </v-icon>
-    </v-btn>
+    <button class="button" @click="emit('input', calculateChange(1))">
+      &gt;
+    </button>
   </div>
 </template>
 
@@ -64,7 +54,7 @@ const formatter = computed(() => {
 });
 
 const classes = computed(() => ({
-  "v-date-picker-header--disabled": props.disabled
+  "date-picker-header--disabled": props.disabled
 }));
 
 const calculateChange = (sign: number) => {
@@ -77,7 +67,7 @@ const calculateChange = (sign: number) => {
 <style lang="sass" scoped>
 @import "./variables.scss"
 
-.v-date-picker-header
+.date-picker-header
   padding: $date-picker-header-padding
 
   align-items: center
@@ -85,7 +75,7 @@ const calculateChange = (sign: number) => {
   justify-content: space-between
   position: relative
 
-  .v-btn
+  .button
     margin: 0
     z-index: auto
 
@@ -93,7 +83,7 @@ const calculateChange = (sign: number) => {
     cursor: pointer
     user-select: none
 
-.v-date-picker-header__value
+.date-picker-header__value
   flex: 1
   text-align: center
   position: relative
@@ -110,6 +100,6 @@ const calculateChange = (sign: number) => {
     padding: $date-picker-header-button-padding
     transition: $date-picker-header-button-transition
 
-.v-date-picker-header--disabled
+.date-picker-header--disabled
   pointer-events: none
 </style>

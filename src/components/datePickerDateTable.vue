@@ -1,5 +1,5 @@
 <template>
-  <table :key="tableDate" class="v-date-picker-table v-date-picker-table--date">
+  <table :key="tableDate" class="date-picker-table date-picker-table--date">
     <thead>
       <tr>
         <th v-for="(d, i) in weekDays" :key="i">
@@ -10,20 +10,14 @@
     <tbody>
       <tr v-for="(r, i) in rows" :key="i">
         <td v-for="(d, j) in r" :key="j">
-          <v-btn
-            class="v-date-picker-table__current"
-            :class="{
-              [`bg-${color || 'accent'}`]: isSelected(d),
-              'bg-green-lighten-3 text-white':
-                d === currentDate && !isSelected(d)
-            }"
-            variant="text"
-            icon
+          <button
+            class="date-picker-table__current button"
+            :style="tableDayStyle(d)"
             @click="emit('input', d)"
             v-if="d !== ''"
           >
             {{ formatter!(d) }}
-          </v-btn>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -82,6 +76,21 @@ const displayedMonth = computed(
 );
 
 const displayedYear = computed(() => Number(props.tableDate.split("-")[0]));
+
+const tableDayStyle = (d: string) => {
+  const res = {};
+
+  if (isSelected(d)) {
+    //
+  }
+
+  return res;
+
+  return {
+    [`bg-${props.color || "accent"}`]: isSelected(d),
+    "bg-green-lighten-3 text-white": d === currentDate.value && !isSelected(d)
+  };
+};
 
 const weekDaysBeforeFirstDayOfTheMonth = () => {
   const firstDayOfTheMonth = new Date(
@@ -168,7 +177,7 @@ const rows = computed(() => {
 <style lang="sass" scoped>
 @import "./variables.scss"
 
-.v-date-picker-table
+.date-picker-table
   position: relative
   padding: $date-picker-table-padding
   height: $date-picker-table-height
@@ -187,19 +196,19 @@ const rows = computed(() => {
     font-size: $date-picker-table-font-size
     color: rgba(0,0,0,.38)
 
-  &--date .v-btn
+  &--date .button
     height: $date-picker-table-date-button-height
     width: $date-picker-table-date-button-width
 
-  .v-btn
+  .button
     z-index: auto
     margin: 0
     font-size: $date-picker-table-font-size
 
-    &.v-btn--active
+    &.button--active
       color: $date-picker-table-active-date-color
 
-.v-date-picker-table--date
+.date-picker-table--date
   th
     padding: $date-picker-table-date-padding
     font-weight: $date-picker-table-date-font-weight
@@ -207,7 +216,7 @@ const rows = computed(() => {
   td
     width: $date-picker-table-date-width
 
-.v-date-picker-table__events
+.date-picker-table__events
   height: $date-picker-event-size
   left: 0
   position: absolute
@@ -222,15 +231,15 @@ const rows = computed(() => {
     margin: $date-picker-event-margin
     width: $date-picker-event-size
 
-.v-date-picker-table--date .v-date-picker-table__events
+.date-picker-table--date .date-picker-table__events
   bottom: $date-picker-event-month-bottom
 
-.v-date-picker-table--month .v-date-picker-table__events
+.date-picker-table--month .date-picker-table__events
   bottom: $date-picker-event-date-bottom
 
-.v-date-picker-table__current .v-date-picker-table__events
+.date-picker-table__current .date-picker-table__events
   margin-bottom: -1px
 
-.v-date-picker-table--disabled
+.date-picker-table--disabled
   pointer-events: none
 </style>

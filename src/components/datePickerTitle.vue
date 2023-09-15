@@ -1,18 +1,18 @@
 <template>
-  <div class="v-date-picker-title v-picker__title" :class="classes">
+  <div class="v-date-picker-title picker__title" :class="classes">
     <div
       :class="titleClasses"
-      class="v-picker__title__btn v-date-picker-title__year"
+      class="picker__title__btn v-date-picker-title__year"
       @click="emit('select-year', true)"
     >
       {{ year }}
-      <v-icon v-if="yearIcon">
+      <button v-if="yearIcon">
         {{ yearIcon }}
-      </v-icon>
+      </button>
     </div>
     <div
       :class="titleDateClasses"
-      class="v-picker__title__btn v-date-picker-title__date"
+      class="picker__title__btn v-date-picker-title__date"
       @click="emit('select-year', false)"
     >
       <transition name="picker-transition">
@@ -48,13 +48,13 @@ const classes = computed(() => ({
 }));
 
 const titleClasses = computed(() => ({
-  "v-picker__title__btn--active": props.selectingYear,
-  "v-picker__title__btn--readonly": props.readonly
+  "picker__title__btn--active": props.selectingYear,
+  "picker__title__btn--readonly": props.readonly
 }));
 
 const titleDateClasses = computed(() => ({
-  "v-picker__title__btn--active": !props.selectingYear,
-  "v-picker__title__btn--readonly": props.readonly
+  "picker__title__btn--active": !props.selectingYear,
+  "picker__title__btn--readonly": props.readonly
 }));
 </script>
 
@@ -91,7 +91,7 @@ const titleDateClasses = computed(() => ({
   &--disabled
     pointer-events: none
 
-.v-picker
+.picker
   border-radius: $picker-border-radius
   contain: layout style
   display: inline-flex
@@ -109,23 +109,23 @@ const titleDateClasses = computed(() => ({
     &__btn
       transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)
 
-      &:not(.v-picker__title__btn--active)
+      &:not(.picker__title__btn--active)
         opacity: $picker-inactive-btn-opacity
         cursor: pointer
 
         &:hover:not(:focus)
           opacity: 1
 
-.v-picker--full-width
+.picker--full-width
   display: flex
   width: 100%
 
-  > .v-picker__body
+  > .picker__body
     margin: initial
 
-.v-picker__title__btn--readonly
+.picker__title__btn--readonly
   pointer-events: none
 
-.v-picker__title__btn--active
+.picker__title__btn--active
     opacity: $picker-active-btn-opacity
 </style>
