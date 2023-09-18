@@ -10,14 +10,14 @@
     <tbody>
       <tr v-for="(r, i) in rows" :key="i">
         <td v-for="(d, j) in r" :key="j">
-          <button
+          <div
             class="date-picker-table__current button"
-            :style="tableDayStyle(d)"
+            :class="tableDayClass(d)"
             @click="emit('input', d)"
             v-if="d !== ''"
           >
             {{ formatter!(d) }}
-          </button>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -33,21 +33,26 @@ const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
 
-const props = defineProps<{
-  localeFirstDayOfYear?: string | number;
-  firstDayOfWeek?: string | number;
-  showAdjacentMonths?: boolean;
-  allowedDates?: DatePickerAllowedDatesFunction;
-  disabled?: boolean;
-  events?: any[] | Function | Object;
-  eventColor?: any[] | Function | Object | string;
-  range?: boolean;
-  readonly?: boolean;
-  tableDate: string;
-  value?: string | string[];
-  currentLocale?: string;
-  color?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    localeFirstDayOfYear?: string | number;
+    firstDayOfWeek?: string | number;
+    showAdjacentMonths?: boolean;
+    allowedDates?: DatePickerAllowedDatesFunction;
+    disabled?: boolean;
+    events?: any[] | Function | Object;
+    eventColor?: any[] | Function | Object | string;
+    range?: boolean;
+    readonly?: boolean;
+    tableDate: string;
+    value?: string | string[];
+    currentLocale?: string;
+    color?: string;
+  }>(),
+  {
+    color: "#2e79bd"
+  }
+);
 
 const currentDate = computed(() => new Date().toISOString().substring(0, 10));
 
@@ -77,18 +82,10 @@ const displayedMonth = computed(
 
 const displayedYear = computed(() => Number(props.tableDate.split("-")[0]));
 
-const tableDayStyle = (d: string) => {
-  const res = {};
-
-  if (isSelected(d)) {
-    //
-  }
-
-  return res;
-
+const tableDayClass = (d: string) => {
   return {
-    [`bg-${props.color || "accent"}`]: isSelected(d),
-    "bg-green-lighten-3 text-white": d === currentDate.value && !isSelected(d)
+    selected: isSelected(d),
+    "current-day": d === currentDate.value && !isSelected(d)
   };
 };
 
@@ -177,6 +174,16 @@ const rows = computed(() => {
 <style lang="sass" scoped>
 @import "./variables.scss"
 
+.selected
+  background-color: v-bind(color)
+  color: white
+
+.current-day
+  border: 1px solid v-bind(color)
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+
 .date-picker-table
   position: relative
   padding: $date-picker-table-padding
@@ -204,9 +211,13 @@ const rows = computed(() => {
     z-index: auto
     margin: 0
     font-size: $date-picker-table-font-size
-
-    &.button--active
-      color: $date-picker-table-active-date-color
+    border-radius: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    user-select: none
+    font-size: 14px
 
 .date-picker-table--date
   th

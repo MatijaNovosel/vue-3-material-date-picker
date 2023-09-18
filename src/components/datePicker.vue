@@ -1,5 +1,5 @@
 <template>
-  <div :style="styles">
+  <div :style="styles" class="date-picker">
     <date-picker-title
       v-if="!noTitle"
       :color="color"
@@ -316,3 +316,8 @@ onMounted(() => {
   state.tableDate = sanitizeDateString(date as string, "month");
 });
 </script>
+
+<style lang="sass" scoped>
+.date-picker
+  font-family: "Roboto"
+</style>
