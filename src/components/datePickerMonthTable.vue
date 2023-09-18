@@ -1,14 +1,12 @@
 <template>
-  <table class="v-date-picker-table v-date-picker-table--month w-100">
+  <table class="date-picker-table date-picker-table--month">
     <tbody>
       <tr v-for="(r, i) in rows" :key="i">
         <td v-for="(d, j) in r" :key="j">
           <div
             class="button"
             @click="emit('input', d)"
-            :class="{
-              [`bg-${color || 'accent'}`]: isSelected(d)
-            }"
+            :class="tableMonthClasses(d)"
           >
             {{ formatter!(d) }}
           </div>
@@ -26,15 +24,20 @@ const emit = defineEmits<{
   (e: "input", value: string): void;
 }>();
 
-const props = defineProps<{
-  disabled?: boolean;
-  readonly?: boolean;
-  tableDate: string;
-  value?: string | string[];
-  range?: boolean;
-  currentLocale?: string;
-  color?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    disabled?: boolean;
+    readonly?: boolean;
+    tableDate: string;
+    value?: string | string[];
+    range?: boolean;
+    currentLocale?: string;
+    color?: string;
+  }>(),
+  {
+    color: "#2e79bd"
+  }
+);
 
 const formatter = createNativeLocaleFormatter(
   props.currentLocale,
@@ -43,6 +46,7 @@ const formatter = createNativeLocaleFormatter(
 );
 
 const displayedYear = computed(() => Number(props.tableDate.split("-")[0]));
+const currentDate = computed(() => new Date().toISOString().substring(0, 7));
 
 const isSelected = (value: string) => {
   if (Array.isArray(props.value)) {
@@ -54,6 +58,13 @@ const isSelected = (value: string) => {
     }
   }
   return value === props.value;
+};
+
+const tableMonthClasses = (d: string) => {
+  return {
+    selected: isSelected(d),
+    "current-month": d === currentDate.value && !isSelected(d)
+  };
 };
 
 const rows = computed(() => {
@@ -79,7 +90,13 @@ const rows = computed(() => {
 <style lang="sass" scoped>
 @import "./variables.scss"
 
-.v-date-picker-table
+.selected
+  background-color: v-bind(color)
+  color: white
+  border-radius: 4px
+  font-weight: bold
+
+.date-picker-table
   position: relative
   padding: $date-picker-table-padding
   height: $date-picker-table-height
@@ -98,26 +115,35 @@ const rows = computed(() => {
     font-size: $date-picker-table-font-size
     color: rgba(0,0,0,.38)
 
-  &--date .button
-    height: $date-picker-table-date-button-height
-
   .button
     z-index: auto
     margin: 0
     font-size: $date-picker-table-font-size
     cursor: pointer
     user-select: none
+    text-transform: uppercase
+    height: $date-picker-table-date-button-height
+    display: flex
+    align-items: center
+    justify-content: center
 
     &.button--active
       color: $date-picker-table-active-date-color
 
-.v-date-picker-table--month
+.date-picker-table--month
   td
     width: 33.333333%
     height: $date-picker-table-month-height
     vertical-align: middle
     text-align: center
 
-.v-date-picker-table--disabled
+.date-picker-table--disabled
   pointer-events: none
+
+.current-month
+  border: 1px solid v-bind(color)
+  box-sizing: border-box
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  border-radius: 6px
 </style>
