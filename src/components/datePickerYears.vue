@@ -1,5 +1,5 @@
 <template>
-  <ul class="v-date-picker-years" ref="yearList">
+  <ul class="date-picker-years" ref="yearList">
     <li
       :class="{
         active: parseInt(value.toString(), 10) === year
@@ -69,7 +69,7 @@ onMounted(() => {
 <style lang="sass" scoped>
 @import './variables.scss'
 
-.v-date-picker-years
+.date-picker-years
   font-size: $date-picker-years-font-size
   font-weight: $date-picker-years-font-weight
   height: $date-picker-years-portrait-height
@@ -77,7 +77,7 @@ onMounted(() => {
   overflow: auto
   text-align: $date-picker-years-item-align
 
-  &.v-date-picker-years
+  &.date-picker-years
     padding: 0
 
   li

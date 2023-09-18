@@ -70,11 +70,11 @@ const calculateChange = (sign: number) => {
 
 .date-picker-header
   padding: $date-picker-header-padding
-
   align-items: center
   display: flex
   justify-content: space-between
   position: relative
+  user-select: none
 
   .button
     margin: 0
@@ -84,10 +84,6 @@ const calculateChange = (sign: number) => {
     outline: none
     padding: $date-picker-header-button-padding
     transition: $date-picker-header-button-transition
-
-  .v-icon
-    cursor: pointer
-    user-select: none
 
 .date-picker-header__value
   flex: 1

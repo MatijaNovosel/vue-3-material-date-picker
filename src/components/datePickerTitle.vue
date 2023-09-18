@@ -1,8 +1,8 @@
 <template>
-  <div class="v-date-picker-title picker__title">
+  <div class="date-picker-title picker__title">
     <div
       :class="titleClasses"
-      class="picker__title__btn v-date-picker-title__year"
+      class="picker__title__btn date-picker-title__year"
       @click="emit('select-year', true)"
     >
       {{ year }}
@@ -12,7 +12,7 @@
     </div>
     <div
       :class="titleDateClasses"
-      class="picker__title__btn v-date-picker-title__date"
+      class="picker__title__btn date-picker-title__date"
       @click="emit('select-year', false)"
     >
       <transition name="picker-transition">
@@ -62,12 +62,13 @@ const titleDateClasses = computed(() => ({
 @import './variables.scss'
 @import './transitions.scss'
 
-.v-date-picker-title
+.date-picker-title
   display: flex
   justify-content: space-between
   flex-direction: column
   flex-wrap: wrap
   line-height: 1
+  user-select: none
 
   &__year
     align-items: center
