@@ -1,16 +1,12 @@
 <template>
   <div class="date-picker-header" :class="classes">
-    <button class="button" @click="emit('input', calculateChange(-1))">
-      &lt;
-    </button>
+    <div class="button" @click="emit('input', calculateChange(-1))">&lt;</div>
     <div class="date-picker-header__value">
-      <button class="button" @click="emit('toggle')">
+      <div class="button" @click="emit('toggle')">
         {{ formatter!(value.toString()) }}
-      </button>
+      </div>
     </div>
-    <button class="button" @click="emit('input', calculateChange(1))">
-      &gt;
-    </button>
+    <div class="button" @click="emit('input', calculateChange(1))">&gt;</div>
   </div>
 </template>
 
@@ -23,19 +19,24 @@ const emit = defineEmits<{
   (e: "toggle"): void;
 }>();
 
-const props = defineProps<{
-  disabled?: boolean;
-  min?: string;
-  max?: string;
-  nextAriaLabel?: string;
-  nextIcon?: string;
-  prevAriaLabel?: string;
-  prevIcon?: string;
-  readonly?: boolean;
-  currentLocale?: string;
-  color?: string;
-  value: number | string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    disabled?: boolean;
+    min?: string;
+    max?: string;
+    nextAriaLabel?: string;
+    nextIcon?: string;
+    prevAriaLabel?: string;
+    prevIcon?: string;
+    readonly?: boolean;
+    currentLocale?: string;
+    color?: string;
+    value: number | string;
+  }>(),
+  {
+    color: "#2e79bd"
+  }
+);
 
 const formatter = computed(() => {
   if (String(props.value).split("-")[1]) {
@@ -78,6 +79,11 @@ const calculateChange = (sign: number) => {
   .button
     margin: 0
     z-index: auto
+    cursor: pointer
+    font-weight: $date-picker-header-button-font-weight
+    outline: none
+    padding: $date-picker-header-button-padding
+    transition: $date-picker-header-button-transition
 
   .v-icon
     cursor: pointer
@@ -92,13 +98,6 @@ const calculateChange = (sign: number) => {
   div
     transition: $date-picker-header-value-transition
     width: 100%
-
-  button
-    cursor: pointer
-    font-weight: $date-picker-header-button-font-weight
-    outline: none
-    padding: $date-picker-header-button-padding
-    transition: $date-picker-header-button-transition
 
 .date-picker-header--disabled
   pointer-events: none

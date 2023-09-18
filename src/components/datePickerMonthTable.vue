@@ -3,7 +3,7 @@
     <tbody>
       <tr v-for="(r, i) in rows" :key="i">
         <td v-for="(d, j) in r" :key="j">
-          <button
+          <div
             class="button"
             @click="emit('input', d)"
             :class="{
@@ -11,7 +11,7 @@
             }"
           >
             {{ formatter!(d) }}
-          </button>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -83,12 +83,12 @@ const rows = computed(() => {
   position: relative
   padding: $date-picker-table-padding
   height: $date-picker-table-height
+  width: 100%
 
   table
     transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)
     top: 0
     table-layout: fixed
-    width: 100%
 
   td, th
     text-align: center
@@ -105,6 +105,8 @@ const rows = computed(() => {
     z-index: auto
     margin: 0
     font-size: $date-picker-table-font-size
+    cursor: pointer
+    user-select: none
 
     &.button--active
       color: $date-picker-table-active-date-color

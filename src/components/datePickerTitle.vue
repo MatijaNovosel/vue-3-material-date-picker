@@ -1,5 +1,5 @@
 <template>
-  <div class="v-date-picker-title picker__title" :class="classes">
+  <div class="v-date-picker-title picker__title">
     <div
       :class="titleClasses"
       class="picker__title__btn v-date-picker-title__year"
@@ -31,21 +31,21 @@ const emit = defineEmits<{
   (e: "select-year", value: boolean): void;
 }>();
 
-const props = defineProps<{
-  date?: string;
-  disabled?: boolean;
-  readonly?: boolean;
-  selectingYear?: boolean;
-  value?: string;
-  year?: number | string;
-  yearIcon?: string;
-  color?: string;
-}>();
-
-const classes = computed(() => ({
-  // TODO: Treba handlati druge načine predaje boja osim vuetify klasa, npr. hex
-  [`bg-${props.color}` || "bg-accent"]: true
-}));
+const props = withDefaults(
+  defineProps<{
+    date?: string;
+    disabled?: boolean;
+    readonly?: boolean;
+    selectingYear?: boolean;
+    value?: string;
+    year?: number | string;
+    yearIcon?: string;
+    color?: string;
+  }>(),
+  {
+    color: "#2e79bd"
+  }
+);
 
 const titleClasses = computed(() => ({
   "picker__title__btn--active": props.selectingYear,
@@ -105,6 +105,7 @@ const titleDateClasses = computed(() => ({
     border-top-left-radius: $picker-border-radius
     border-top-right-radius: $picker-border-radius
     padding: $picker-title-padding
+    background-color: v-bind(color)
 
     &__btn
       transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1)
