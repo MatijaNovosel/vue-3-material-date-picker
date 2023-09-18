@@ -2,10 +2,7 @@
   <ul class="v-date-picker-years" ref="yearList">
     <li
       :class="{
-        active: parseInt(value.toString(), 10) === year,
-        [`text-${
-          parseInt(value.toString(), 10) === year && (color || 'primary')
-        }`]: true
+        active: parseInt(value.toString(), 10) === year
       }"
       v-for="year in years"
       :key="year"
@@ -26,14 +23,19 @@ const emit = defineEmits<{
 
 const yearList = ref<HTMLElement | null>(null);
 
-const props = defineProps<{
-  disabled?: boolean;
-  readonly?: boolean;
-  value: string | number;
-  range?: boolean;
-  currentLocale?: string;
-  color?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    disabled?: boolean;
+    readonly?: boolean;
+    value: string | number;
+    range?: boolean;
+    currentLocale?: string;
+    color?: string;
+  }>(),
+  {
+    color: "#2e79bd"
+  }
+);
 
 const formatter = createNativeLocaleFormatter(
   props.currentLocale,
@@ -87,6 +89,7 @@ onMounted(() => {
       font-size: $date-picker-years-active-font-size
       font-weight: $date-picker-years-active-font-weight
       padding: $date-picker-years-active-padding
+      color: v-bind(color) !important
 
     &:hover
       background: $date-picker-years-item-hover-background

@@ -77,28 +77,33 @@ const emit = defineEmits<{
   (e: "change", value: string | string[]): void;
 }>();
 
-const props = defineProps<{
-  allowedDates?: DatePickerAllowedDatesFunction;
-  disabled?: boolean;
-  events?: DatePickerEvents;
-  eventColor?: DatePickerEventColors;
-  firstDayOfWeek?: string | number;
-  max: string;
-  min: string;
-  multiple?: boolean;
-  pickerDate?: string;
-  range?: boolean;
-  readonly?: boolean;
-  showCurrent?: boolean | string;
-  selectedItemsText?: string;
-  showAdjacentMonths?: boolean;
-  modelValue: DatePickerValue;
-  locale?: string;
-  fullWidth?: boolean;
-  noTitle?: boolean;
-  width?: number | string;
-  color?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    allowedDates?: DatePickerAllowedDatesFunction;
+    disabled?: boolean;
+    events?: DatePickerEvents;
+    eventColor?: DatePickerEventColors;
+    firstDayOfWeek?: string | number;
+    max: string;
+    min: string;
+    multiple?: boolean;
+    pickerDate?: string;
+    range?: boolean;
+    readonly?: boolean;
+    showCurrent?: boolean | string;
+    selectedItemsText?: string;
+    showAdjacentMonths?: boolean;
+    modelValue: DatePickerValue;
+    locale?: string;
+    fullWidth?: boolean;
+    noTitle?: boolean;
+    width?: number | string;
+    color?: string;
+  }>(),
+  {
+    color: "#2e79bd"
+  }
+);
 
 const styles = computed(() => ({
   width: props.fullWidth ? undefined : convertToUnit(props.width || 290)
