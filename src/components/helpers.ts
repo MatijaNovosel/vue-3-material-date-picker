@@ -183,5 +183,5 @@ export function sanitizeDateString(
 }
 
 export function wrapInArray<T>(v: T | T[] | null | undefined): T[] {
-  return v != null ? (Array.isArray(v) ? v : [v]) : [];
+  return v != null && v != undefined ? (Array.isArray(v) ? v : [v]) : [];
 }

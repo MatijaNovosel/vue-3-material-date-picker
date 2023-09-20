@@ -6,7 +6,7 @@
       :date="pickerTitle"
       :year="paddedTableYear"
       :selecting-year="state.internalActivePicker === DATE_PICKER_MODE.year"
-      @select-year="(value: boolean) => state.internalActivePicker = value ? DATE_PICKER_MODE.year : DATE_PICKER_MODE.date"
+      @select-year="selectYear"
     />
     <date-picker-header
       v-if="
@@ -303,6 +303,12 @@ const setInputDate = () => {
       state.inputMonth == null ? state.inputMonth : now.getMonth();
     state.inputDay = state.inputDay || now.getDate();
   }
+};
+
+const selectYear = (value: boolean) => {
+  state.internalActivePicker = value
+    ? DATE_PICKER_MODE.year
+    : DATE_PICKER_MODE.date;
 };
 
 watch(
