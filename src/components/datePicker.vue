@@ -254,7 +254,7 @@ const yearClick = (value: number) => {
   state.tableDate = `${value}-${((tableMonth.value || 0) + 1)
     .toString()
     .padStart(2, "0")}`;
-  state.internalActivePicker = "MONTH";
+  state.internalActivePicker = DATE_PICKER_MODE.month;
   if (
     !props.readonly &&
     !isMultiple.value &&
@@ -274,7 +274,7 @@ const monthClick = (value: string) => {
     );
   }
   state.tableDate = value;
-  state.internalActivePicker = "DATE";
+  state.internalActivePicker = DATE_PICKER_MODE.date;
   if (
     !props.readonly &&
     !isMultiple.value &&
