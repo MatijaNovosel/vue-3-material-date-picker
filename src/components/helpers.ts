@@ -1,4 +1,8 @@
-import { DAYS_IN_MONTH, DAYS_IN_MONTH_LEAP } from "./constants";
+import {
+  DAYS_IN_MONTH,
+  DAYS_IN_MONTH_LEAP,
+  SUBSTRING_TYPE_LEN
+} from "./constants";
 import {
   DatePickerAllowedDatesFunction,
   DatePickerFormatter,
@@ -175,7 +179,7 @@ export function sanitizeDateString(
   const [year, month = 1, date = 1] = dateString.split("-");
   return `${year}-${month.toString().padStart(2, "0")}-${date
     .toString()
-    .padStart(2, "0")}`.substring(0, { date: 10, month: 7, year: 4 }[type]);
+    .padStart(2, "0")}`.substring(0, SUBSTRING_TYPE_LEN[type]);
 }
 
 export function wrapInArray<T>(v: T | T[] | null | undefined): T[] {

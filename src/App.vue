@@ -5,8 +5,12 @@
       min="2020-01-24"
       locale="en-us"
       v-model="date"
+      disabled
     />
-    {{ date }}
+    <div style="margin-left: 30px">
+      {{ date }}
+      <button @click="changeDate" style="margin-left: 5px">Change</button>
+    </div>
   </div>
 </template>
 
@@ -15,4 +19,8 @@ import { ref } from "vue";
 import datePicker from "./components/datePicker.vue";
 
 const date = ref(new Date().toISOString().substring(0, 10));
+
+const changeDate = () => {
+  date.value = "2023-09-23";
+};
 </script>

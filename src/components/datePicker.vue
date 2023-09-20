@@ -4,40 +4,44 @@
       v-if="!noTitle"
       :color="color"
       :date="pickerTitle"
-      :year="tableYear.toString().padStart(4, '0')"
-      :selecting-year="state.internalActivePicker === 'YEAR'"
-      @select-year="(value: boolean) => state.internalActivePicker = value ? 'YEAR' : 'DATE'"
+      :year="paddedTableYear"
+      :selecting-year="state.internalActivePicker === DATE_PICKER_MODE.year"
+      @select-year="(value: boolean) => state.internalActivePicker = value ? DATE_PICKER_MODE.year : DATE_PICKER_MODE.date"
     />
     <date-picker-header
-      v-if="['DATE', 'MONTH'].includes(state.internalActivePicker)"
+      v-if="
+        [DATE_PICKER_MODE.date, DATE_PICKER_MODE.month].includes(
+          state.internalActivePicker
+        )
+      "
       :color="color"
       :value="
-        state.internalActivePicker === 'DATE'
-          ? `${tableYear.toString().padStart(4, '0')}-${(tableMonth + 1)
-              .toString()
-              .padStart(2, '0')}`
-          : `${tableYear.toString().padStart(4, '0')}`
+        state.internalActivePicker === DATE_PICKER_MODE.date
+          ? `${paddedTableYear}-${(tableMonth + 1).toString().padStart(2, '0')}`
+          : `${paddedTableYear}`
       "
       @input="(value: string) => state.tableDate = value"
       @toggle="
         state.internalActivePicker =
-          state.internalActivePicker === 'DATE' ? 'MONTH' : 'YEAR'
+          state.internalActivePicker === DATE_PICKER_MODE.date
+            ? DATE_PICKER_MODE.month
+            : DATE_PICKER_MODE.year
       "
     />
     <date-picker-date-table
-      v-if="state.internalActivePicker === 'DATE'"
+      v-if="state.internalActivePicker === DATE_PICKER_MODE.date"
       :value="modelValue"
       :color="color"
-      :table-date="`${tableYear.toString().padStart(4, '0')}-${(tableMonth + 1)
+      :table-date="`${paddedTableYear}-${(tableMonth + 1)
         .toString()
         .padStart(2, '0')}`"
       @input="dateClick"
     />
     <date-picker-month-table
-      v-else-if="state.internalActivePicker === 'MONTH'"
+      v-else-if="state.internalActivePicker === DATE_PICKER_MODE.month"
       :value="selectedMonths"
       :color="color"
-      :table-date="tableYear.toString().padStart(4, '0')"
+      :table-date="paddedTableYear"
       @input="monthClick"
     />
     <date-picker-years
@@ -51,7 +55,11 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, reactive, watch } from "vue";
-import { titleFormats } from "./constants";
+import {
+  DATE_PICKER_MODE,
+  SUBSTRING_TYPE_LEN,
+  titleFormats
+} from "./constants";
 import DatePickerDateTable from "./datePickerDateTable.vue";
 import DatePickerHeader from "./datePickerHeader.vue";
 import DatePickerMonthTable from "./datePickerMonthTable.vue";
@@ -118,7 +126,7 @@ const pickerTitle = computed(() =>
 const now = new Date();
 
 const state = reactive({
-  internalActivePicker: "DATE",
+  internalActivePicker: DATE_PICKER_MODE.date,
   inputDay: null as number | null,
   inputMonth: null as number | null,
   inputYear: null as number | null,
@@ -161,6 +169,10 @@ const tableYear = computed(() =>
   Number((props.pickerDate || state.tableDate).split("-")[0])
 );
 
+const paddedTableYear = computed(() =>
+  tableYear.value.toString().padStart(4, "0")
+);
+
 const minMonth = computed(() =>
   props.min ? sanitizeDateString(props.min, "month") : null
 );
@@ -198,7 +210,7 @@ const defaultTitleMultipleDateFormatter = computed(() => (dates: string[]) => {
 const defaultTitleDateFormatter = computed(() =>
   createNativeLocaleFormatter(props.locale, titleFormats["date"], {
     start: 0,
-    length: { date: 10, month: 7, year: 4 }["date"]
+    length: SUBSTRING_TYPE_LEN["date"]
   })
 );
 
