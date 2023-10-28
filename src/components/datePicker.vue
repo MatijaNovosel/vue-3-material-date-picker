@@ -15,6 +15,7 @@
         )
       "
       :color="color"
+      :current-locale="props.locale"
       :value="
         state.internalActivePicker === DATE_PICKER_MODE.date
           ? `${paddedTableYear}-${(tableMonth + 1).toString().padStart(2, '0')}`
@@ -33,13 +34,13 @@
       :value="modelValue"
       :allowed-dates="props.allowedDates"
       :readonly="props.readonly"
+      :current-locale="props.locale"
+      :first-day-of-week="props.firstDayOfWeek"
       :disabled="props.disabled"
       :min="props.min"
       :max="props.max"
       :color="color"
-      :table-date="`${paddedTableYear}-${(tableMonth + 1)
-        .toString()
-        .padStart(2, '0')}`"
+      :table-date="tableDate"
       @input="dateClick"
     />
     <date-picker-month-table
@@ -168,6 +169,13 @@ const inputDate = computed(
 
 const tableMonth = computed(
   () => Number((props.pickerDate || state.tableDate).split("-")[1]) - 1
+);
+
+const tableDate = computed(
+  () =>
+    `${paddedTableYear.value}-${(tableMonth.value + 1)
+      .toString()
+      .padStart(2, "0")}`
 );
 
 const tableYear = computed(() =>

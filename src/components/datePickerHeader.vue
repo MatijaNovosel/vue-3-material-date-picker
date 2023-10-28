@@ -3,7 +3,7 @@
     <div class="button" @click="emit('input', calculateChange(-1))">&lt;</div>
     <div class="date-picker-header__value">
       <div class="button" @click="emit('toggle')">
-        {{ formatter!(value.toString()) }}
+        {{ capitalize(formatter!(value.toString())) }}
       </div>
     </div>
     <div class="button" @click="emit('input', calculateChange(1))">&gt;</div>
@@ -12,7 +12,11 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { createNativeLocaleFormatter, monthChange } from "./helpers";
+import {
+  capitalize,
+  createNativeLocaleFormatter,
+  monthChange
+} from "./helpers";
 
 const emit = defineEmits<{
   (e: "input", value: string): void;

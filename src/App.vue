@@ -3,8 +3,9 @@
     <date-picker
       max="2023-12-12"
       min="2020-01-24"
+      :first-day-of-week="1"
       :allowed-dates="(date) => parseInt(date.split('-')[2], 10) % 2 === 0"
-      locale="en-us"
+      locale="hr-HR"
       v-model="date"
     />
     <div style="margin-left: 30px">

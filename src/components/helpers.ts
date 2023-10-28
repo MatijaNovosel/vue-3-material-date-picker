@@ -185,3 +185,8 @@ export function sanitizeDateString(
 export function wrapInArray<T>(v: T | T[] | null | undefined): T[] {
   return v != null && v != undefined ? (Array.isArray(v) ? v : [v]) : [];
 }
+
+export function capitalize(word: string | undefined) {
+  if (!word) return word;
+  return word[0].toUpperCase() + word.substr(1).toLowerCase();
+}

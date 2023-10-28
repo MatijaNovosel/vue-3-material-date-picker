@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th v-for="(d, i) in weekDays" :key="i">
-          {{ d }}
+          {{ d.toUpperCase() }}
         </th>
       </tr>
     </thead>

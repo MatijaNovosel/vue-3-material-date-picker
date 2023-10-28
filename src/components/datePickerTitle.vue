@@ -17,7 +17,7 @@
     >
       <transition name="picker-transition">
         <div :key="date">
-          {{ date }}
+          {{ capitalize(date) }}
         </div>
       </transition>
     </div>
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
+import { capitalize } from "./helpers";
 
 const emit = defineEmits<{
   (e: "select-year", value: boolean): void;
