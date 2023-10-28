@@ -1,5 +1,5 @@
 {
-  "name": "vue-material-date-picker",
+  "name": "vue-3-material-date-picker",
   "private": false,
   "version": "0.0.1",
   "type": "module",
@@ -9,22 +9,22 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MatijaNovosel/vue-material-date-picker.git"
+    "url": "git+https://github.com/MatijaNovosel/vue-3-material-date-picker.git"
   },
   "keywords": [
     "date-picker",
-    "vue-material-date-picker",
+    "vue-3-material-date-picker",
     "vue-3",
     "vue3",
     "vue",
     "vuejs"
   ],
-  "main": "./dist/vue-material-date-picker.umd.cjs",
-  "module": "./dist/vue-material-date-picker.js",
+  "main": "./dist/vue-3-material-date-picker.umd.cjs",
+  "module": "./dist/vue-3-material-date-picker.js",
   "exports": {
     ".": {
-      "import": "./dist/vue-material-date-picker.js",
-      "require": "./dist/vue-material-date-picker.umd.cjs"
+      "import": "./dist/vue-3-material-date-picker.js",
+      "require": "./dist/vue-3-material-date-picker.umd.cjs"
     },
     "./dist/style.css": {
       "import": "./dist/style.css",

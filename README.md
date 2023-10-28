@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/MatijaNovosel/vue-material-date-picker/assets/36193643/05c61e60-55b3-479f-bfb1-947f0fd1433e" />
+  <img src="https://github.com/MatijaNovosel/vue-3-material-date-picker/assets/36193643/05c61e60-55b3-479f-bfb1-947f0fd1433e" />
 </div>
 
 <h1 align=center>Vue material date picker</h1>
@@ -10,7 +10,7 @@
 Install using your package manager of choice:
 
 ```bash
-yarn add vue-material-date-picker
+yarn add vue-3-material-date-picker
 ```
 
 ## ⚙️ Usage
@@ -37,8 +37,8 @@ Import the component locally or define it globally and include the css file:
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { DatePicker } from "vue-material-date-picker";
-import "vue-material-date-picker/dist/style.css";
+import { DatePicker } from "vue-3-material-date-picker";
+import "vue-3-material-date-picker/dist/style.css";
 
 const date = ref(new Date().toISOString().substring(0, 10));
 

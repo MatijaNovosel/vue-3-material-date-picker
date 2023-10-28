@@ -9,7 +9,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       name: "VueMaterialDatePicker",
-      fileName: "vue-material-date-picker"
+      fileName: "vue-3-material-date-picker"
     },
     rollupOptions: {
       external: ["vue"],
