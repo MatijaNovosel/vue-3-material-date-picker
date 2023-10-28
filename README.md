@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/MatijaNovosel/vue-3-material-date-picker/assets/36193643/05c61e60-55b3-479f-bfb1-947f0fd1433e" />
+  <img src="https://github.com/MatijaNovosel/vue-material-date-picker/assets/36193643/ea576a05-3211-4b98-986b-6283cb55a982" />
 </div>
 
 <h1 align=center>Vue material date picker</h1>
