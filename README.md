@@ -50,6 +50,24 @@ const changeDate = () => {
 
 ## 📃 Props
 
-| Name      | Type       | Default | Description            |
-| --------- | ---------- | ------- | ---------------------- |
-| `v-model` | `number[]` |         | Standard two way input |
+| Name                   | Type            | Default      | Description                                                                                                      |
+| ---------------------- | --------------- | ------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `v-model`              | `string`        | null         | Standard two way input, must be passed as an ISO string (YYYY-mm-dd format e.g. 2023-04-23)                      |
+| `min`                  | `string`        | 1970-01-01   | Allowed starting date, must be passed as an ISO string (YYYY-mm-dd format e.g. 2023-04-23)                       |
+| `max`                  | `string`        | Current date | Allowed ending date, must be passed as an ISO string (YYYY-mm-dd format e.g. 2023-04-23)                         |
+| `disabled`             | `boolean`       | false        | Makes the component uninteractable                                                                               |
+| `readonly`             | `boolean`       | false        | Makes the component uninteractable, but without the style of the disabled variant                                |
+| `width`                | `number/string` | 290px        | Sets the width of the element - can be provided as a string like "290px" or "290" or a number, defaults to 290px |
+| `full-width`           | `boolean`       | false        | Ignores the previous `width` prop and sets the width to 100% of the parent container                             |
+| `color`                | `string`        | #2e79bd      | Color of the various active component elements                                                                   |
+| `first-day-of-week`    | `number/string` | 0            | Sets the first day of the week, starting with 0 for Sunday                                                       |
+| `hide-title`           | `boolean`       | false        | Hide the picker title                                                                                            |
+| `show-adjacent-months` | `boolean`       | false        | Toggles visibility of days from previous and next months                                                         |
+| `locale`               | `string`        | undefined    | Sets the locale, accepts a string with a BCP 47 language tag e.g. en-us or hr-HR                                 |
+| `allowed-dates`        | `function`      | null         | Restricts which dates can be selected                                                                            |
+
+## 🎺 Events
+
+| Name     | Type                     | Description                       |
+| -------- | ------------------------ | --------------------------------- |
+| `change` | `(date: string) => void` | Triggered when a date is selected |

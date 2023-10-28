@@ -32,6 +32,7 @@
     <date-picker-date-table
       v-if="state.internalActivePicker === DATE_PICKER_MODE.date"
       :value="modelValue"
+      :show-adjacent-months="props.showAdjacentMonths"
       :allowed-dates="props.allowedDates"
       :readonly="props.readonly"
       :current-locale="props.locale"
@@ -101,7 +102,6 @@ const props = withDefaults(
     max: string;
     min: string;
     multiple?: boolean;
-    pickerDate?: string;
     range?: boolean;
     readonly?: boolean;
     showCurrent?: boolean | string;
@@ -115,7 +115,9 @@ const props = withDefaults(
     color?: string;
   }>(),
   {
-    color: "#2e79bd"
+    color: "#2e79bd",
+    min: "1970-01-01",
+    max: new Date().toISOString().substring(0, 10)
   }
 );
 
@@ -167,9 +169,7 @@ const inputDate = computed(
       .padStart(2, "0")}-${state.inputDay!.toString().padStart(2, "0")}`
 );
 
-const tableMonth = computed(
-  () => Number((props.pickerDate || state.tableDate).split("-")[1]) - 1
-);
+const tableMonth = computed(() => Number(state.tableDate.split("-")[1]) - 1);
 
 const tableDate = computed(
   () =>
@@ -178,9 +178,7 @@ const tableDate = computed(
       .padStart(2, "0")}`
 );
 
-const tableYear = computed(() =>
-  Number((props.pickerDate || state.tableDate).split("-")[0])
-);
+const tableYear = computed(() => Number(state.tableDate.split("-")[0]));
 
 const paddedTableYear = computed(() =>
   tableYear.value.toString().padStart(4, "0")
@@ -217,7 +215,7 @@ const defaultTitleMultipleDateFormatter = computed(() => (dates: string[]) => {
   if (!dates.length) return "-";
   if (dates.length === 1) return defaultTitleDateFormatter.value!(dates[0]);
   return "";
-  // this.$vuetify.lang.t(props.selectedItemsText, dates.length);
+  // t(props.selectedItemsText, dates.length);
 });
 
 const defaultTitleDateFormatter = computed(() =>
@@ -330,11 +328,8 @@ watch(
     checkMultipleProp();
     setInputDate();
     if (
-      (!isMultiple.value && props.modelValue && !props.pickerDate) ||
-      (isMultiple.value &&
-        multipleValue.value.length &&
-        (!val || !val.length) &&
-        !props.pickerDate)
+      (!isMultiple.value && props.modelValue) ||
+      (isMultiple.value && multipleValue.value.length && (!val || !val.length))
     ) {
       state.tableDate = sanitizeDateString(inputDate.value, "month");
     }
@@ -342,7 +337,6 @@ watch(
 );
 
 onMounted(() => {
-  if (props.pickerDate) return props.pickerDate;
   const multipleValue = wrapInArray(props.modelValue);
   const date =
     multipleValue[multipleValue.length - 1] ||
