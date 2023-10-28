@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/36193643/236633388-ab400a17-41ba-42a4-a06c-05d62349def2.png" />
+  <img src="https://github.com/MatijaNovosel/vue-material-date-picker/assets/36193643/05c61e60-55b3-479f-bfb1-947f0fd1433e" />
 </div>
 
 <h1 align=center>Vue material date picker</h1>
@@ -21,12 +21,17 @@ Import the component locally or define it globally and include the css file:
 <template>
   <div style="display: flex">
     <date-picker
-      max="2020-04-12"
+      max="2023-12-12"
       min="2020-01-24"
+      :first-day-of-week="1"
+      :allowed-dates="(date) => parseInt(date.split('-')[2], 10) % 2 === 0"
       locale="en-us"
       v-model="date"
     />
-    {{ date }}
+    <div style="margin-left: 30px">
+      {{ date }}
+      <button @click="changeDate" style="margin-left: 5px">Change</button>
+    </div>
   </div>
 </template>
 
@@ -34,7 +39,12 @@ Import the component locally or define it globally and include the css file:
 import { ref } from "vue";
 import { DatePicker } from "vue-material-date-picker";
 import "vue-material-date-picker/dist/style.css";
+
 const date = ref(new Date().toISOString().substring(0, 10));
+
+const changeDate = () => {
+  date.value = "2023-09-23";
+};
 </script>
 ```
 
