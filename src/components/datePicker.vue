@@ -32,6 +32,8 @@
       v-if="state.internalActivePicker === DATE_PICKER_MODE.date"
       :value="modelValue"
       :allowed-dates="props.allowedDates"
+      :readonly="props.readonly"
+      :disabled="props.disabled"
       :min="props.min"
       :max="props.max"
       :color="color"

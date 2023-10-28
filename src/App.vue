@@ -6,7 +6,6 @@
       :allowed-dates="(date) => parseInt(date.split('-')[2], 10) % 2 === 0"
       locale="en-us"
       v-model="date"
-      disabled
     />
     <div style="margin-left: 30px">
       {{ date }}

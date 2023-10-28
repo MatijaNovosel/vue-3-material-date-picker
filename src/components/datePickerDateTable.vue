@@ -89,7 +89,9 @@ const displayedMonth = computed(
 const displayedYear = computed(() => Number(props.tableDate.split("-")[0]));
 
 const canSelect = (d: string) =>
-  isDateAllowed(d, props.min, props.max, props.allowedDates);
+  isDateAllowed(d, props.min, props.max, props.allowedDates) &&
+  !props.disabled &&
+  !props.readonly;
 
 const tableDayClass = (d: string) => {
   return {
