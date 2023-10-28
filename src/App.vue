@@ -1,8 +1,9 @@
 <template>
   <div style="display: flex">
     <date-picker
-      max="2020-04-12"
+      max="2023-12-12"
       min="2020-01-24"
+      :allowed-dates="(date) => parseInt(date.split('-')[2], 10) % 2 === 0"
       locale="en-us"
       v-model="date"
       disabled

@@ -13,7 +13,7 @@
           <div
             class="date-picker-table__current button"
             :class="tableDayClass(d)"
-            @click="emit('input', d)"
+            @click="dateSelected(d)"
             v-if="d !== ''"
           >
             {{ formatter!(d) }}
@@ -26,7 +26,11 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { createNativeLocaleFormatter, createRange } from "./helpers";
+import {
+  createNativeLocaleFormatter,
+  createRange,
+  isDateAllowed
+} from "./helpers";
 import { DatePickerAllowedDatesFunction } from "./models";
 
 const emit = defineEmits<{
@@ -35,6 +39,8 @@ const emit = defineEmits<{
 
 const props = withDefaults(
   defineProps<{
+    max: string;
+    min: string;
     localeFirstDayOfYear?: string | number;
     firstDayOfWeek?: string | number;
     showAdjacentMonths?: boolean;
@@ -82,8 +88,12 @@ const displayedMonth = computed(
 
 const displayedYear = computed(() => Number(props.tableDate.split("-")[0]));
 
+const canSelect = (d: string) =>
+  isDateAllowed(d, props.min, props.max, props.allowedDates);
+
 const tableDayClass = (d: string) => {
   return {
+    disabled: !canSelect(d),
     selected: isSelected(d),
     "current-day": d === currentDate.value && !isSelected(d)
   };
@@ -109,6 +119,12 @@ const isSelected = (value: string) => {
     }
   }
   return value === props.value;
+};
+
+const dateSelected = (d: string) => {
+  if (canSelect(d)) {
+    emit("input", d);
+  }
 };
 
 const rows = computed(() => {
@@ -174,9 +190,13 @@ const rows = computed(() => {
 <style lang="sass" scoped>
 @import "./variables.scss"
 
+.disabled
+  color: #bcb3b3d1
+
 .selected
   background-color: v-bind(color)
   color: white
+  font-weight: bold
 
 .current-day
   border: 1px solid v-bind(color)

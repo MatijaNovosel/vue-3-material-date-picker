@@ -48,7 +48,7 @@ export function isDateAllowed(
 ) {
   return (
     (!allowedFn || allowedFn(date)) &&
-    (!min || date >= min.substr(0, 10)) &&
+    (!min || date >= min.substring(0, 10)) &&
     (!max || date <= max)
   );
 }

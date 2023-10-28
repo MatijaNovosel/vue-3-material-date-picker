@@ -31,6 +31,9 @@
     <date-picker-date-table
       v-if="state.internalActivePicker === DATE_PICKER_MODE.date"
       :value="modelValue"
+      :allowed-dates="props.allowedDates"
+      :min="props.min"
+      :max="props.max"
       :color="color"
       :table-date="`${paddedTableYear}-${(tableMonth + 1)
         .toString()
