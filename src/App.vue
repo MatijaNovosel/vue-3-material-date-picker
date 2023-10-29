@@ -1,6 +1,8 @@
 <template>
   <div style="display: flex">
     <date-picker
+      multiple
+      :selected-items-text-formatter="(n) => `${n} dates selected`"
       :first-day-of-week="1"
       :allowed-dates="(date) => parseInt(date.split('-')[2], 10) % 2 === 0"
       locale="en-us"

@@ -105,7 +105,7 @@ const props = withDefaults(
     range?: boolean;
     readonly?: boolean;
     showCurrent?: boolean | string;
-    selectedItemsText?: string;
+    selectedItemsTextFormatter?: (n: number) => string;
     showAdjacentMonths?: boolean;
     modelValue: DatePickerValue;
     locale?: string;
@@ -214,8 +214,10 @@ const formatters = computed(() => ({
 const defaultTitleMultipleDateFormatter = computed(() => (dates: string[]) => {
   if (!dates.length) return "-";
   if (dates.length === 1) return defaultTitleDateFormatter.value!(dates[0]);
-  return "";
-  // t(props.selectedItemsText, dates.length);
+  if (props.selectedItemsTextFormatter) {
+    return props.selectedItemsTextFormatter(dates.length);
+  }
+  return `Selected ${dates.length} dates`;
 });
 
 const defaultTitleDateFormatter = computed(() =>
