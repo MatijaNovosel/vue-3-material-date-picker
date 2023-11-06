@@ -68,15 +68,19 @@ const formatter = createNativeLocaleFormatter(
   { start: 8, length: 2 }
 );
 
-const weekdayFormatter = createNativeLocaleFormatter(props.currentLocale, {
-  weekday: "narrow",
-  timeZone: "UTC"
-});
+const weekdayFormatter = computed(() =>
+  createNativeLocaleFormatter(props.currentLocale, {
+    weekday: "narrow",
+    timeZone: "UTC"
+  })
+);
 
 const weekDays = computed(() => {
   const first = parseInt((props.firstDayOfWeek || 0).toString(), 10);
   return weekdayFormatter
-    ? createRange(7).map((i) => weekdayFormatter!(`2017-01-${first + i + 15}`)) // 2017-01-15 is Sunday
+    ? createRange(7).map((i) =>
+        weekdayFormatter.value!(`2017-01-${first + i + 15}`)
+      ) // 2017-01-15 is Sunday
     : createRange(7).map(
         (i) => ["S", "M", "T", "W", "T", "F", "S"][(i + first) % 7]
       );
