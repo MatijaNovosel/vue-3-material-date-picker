@@ -1,7 +1,9 @@
 <template>
   <div style="display: flex">
     <date-picker
+      multiple
       :selected-items-text-formatter="(n) => `${n} dates selected`"
+      :allowed-dates="(date) => parseInt(date.split('-')[2], 10) % 2 === 0"
       :first-day-of-week="1"
       :locale="locale"
       v-model="date"
