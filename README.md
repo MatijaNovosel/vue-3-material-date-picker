@@ -19,6 +19,10 @@ yarn add vue-3-material-date-picker
 - Customizable and themable
 - Can be changed to any locale on the fly
 
+## 📺 Demo
+
+https://matija-components.vercel.app/date-picker
+
 ## ⚙️ Usage
 
 Import the component locally or define it globally and include the css file:
