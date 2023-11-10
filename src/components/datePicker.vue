@@ -99,8 +99,8 @@ const props = withDefaults(
     events?: DatePickerEvents;
     eventColor?: DatePickerEventColors;
     firstDayOfWeek?: string | number;
-    max: string;
-    min: string;
+    max?: string;
+    min?: string;
     multiple?: boolean;
     range?: boolean;
     readonly?: boolean;
@@ -325,6 +325,13 @@ const selectYear = (value: boolean) => {
 };
 
 watch(
+  () => props.multiple,
+  () => {
+    //
+  }
+);
+
+watch(
   () => props.modelValue,
   (val) => {
     checkMultipleProp();
@@ -335,6 +342,9 @@ watch(
     ) {
       state.tableDate = sanitizeDateString(inputDate.value, "month");
     }
+  },
+  {
+    immediate: true
   }
 );
 

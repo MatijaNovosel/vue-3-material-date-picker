@@ -1,19 +1,19 @@
 <template>
   <div style="display: flex">
     <date-picker
-      multiple
+      :multiple="multiple"
       :selected-items-text-formatter="(n) => `${n} dates selected`"
-      :allowed-dates="(date) => parseInt(date.split('-')[2], 10) % 2 === 0"
       :first-day-of-week="1"
       :locale="locale"
       v-model="date"
     />
     <div style="margin-left: 30px">
-      {{ date }}
+      {{ JSON.stringify(date) }}
       <button @click="changeDate" style="margin-left: 5px">Change</button>
       <button @click="changeLocale" style="margin-left: 5px">
         Change locale
       </button>
+      <input type="checkbox" v-model="multiple" />
     </div>
   </div>
 </template>
@@ -24,6 +24,7 @@ import datePicker from "./components/datePicker.vue";
 
 const date = ref(new Date().toISOString().substring(0, 10));
 const locale = ref("en-US");
+const multiple = ref(false);
 
 const changeDate = () => {
   date.value = "2023-09-23";
