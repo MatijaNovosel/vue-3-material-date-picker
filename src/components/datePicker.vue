@@ -326,8 +326,10 @@ const selectYear = (value: boolean) => {
 
 watch(
   () => props.multiple,
-  () => {
-    //
+  (val, oldVal) => {
+    if (oldVal === true && val === false) {
+      emit("update:modelValue", inputDate.value);
+    }
   }
 );
 

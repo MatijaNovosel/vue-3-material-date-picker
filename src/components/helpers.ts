@@ -25,9 +25,13 @@ export function createNativeLocaleFormatter(
 ): DatePickerFormatter | undefined {
   try {
     const intlFormatter = new Intl.DateTimeFormat(locale || undefined, options);
-    return (dateString: string) =>
+    return (dateString: string | string[]) =>
       intlFormatter.format(
-        new Date(`${makeIsoString(dateString)}T00:00:00+00:00`)
+        new Date(
+          `${makeIsoString(
+            typeof dateString !== "string" ? dateString[0] : dateString
+          )}T00:00:00+00:00`
+        )
       );
   } catch (e) {
     return substrOptions.start || substrOptions.length
