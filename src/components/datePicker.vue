@@ -1,12 +1,22 @@
 <template>
   <div :style="styles" class="date-picker">
     <date-picker-title
-      v-if="!noTitle"
+      v-if="!noTitle && !slots.title"
       :color="color"
       :date="pickerTitle"
       :year="paddedTableYear"
       :selecting-year="state.internalActivePicker === DATE_PICKER_MODE.year"
       @select-year="selectYear"
+    />
+    <slot
+      v-if="slots.title"
+      name="title"
+      :date="inputDate"
+      :select-years="() => (state.internalActivePicker = DATE_PICKER_MODE.year)"
+      :select-months="
+        () => (state.internalActivePicker = DATE_PICKER_MODE.month)
+      "
+      :select-days="() => (state.internalActivePicker = DATE_PICKER_MODE.date)"
     />
     <date-picker-header
       v-if="
@@ -61,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive, watch } from "vue";
+import { computed, onMounted, reactive, useSlots, watch } from "vue";
 import {
   DATE_PICKER_MODE,
   SUBSTRING_TYPE_LEN,
@@ -87,9 +97,14 @@ import {
   DatePickerValue
 } from "./models";
 
+const slots = useSlots();
+
 const emit = defineEmits<{
   (e: "update:modelValue", value: string | string[]): void;
   (e: "change", value: string | string[]): void;
+  (e: "select:year"): void;
+  (e: "select:month"): void;
+  (e: "select:day"): void;
 }>();
 
 const props = withDefaults(
@@ -332,6 +347,26 @@ watch(
   (val, oldVal) => {
     if (oldVal === true && val === false) {
       emit("update:modelValue", inputDate.value);
+    }
+  }
+);
+
+watch(
+  () => state.internalActivePicker,
+  (val) => {
+    switch (val) {
+      case DATE_PICKER_MODE.year: {
+        emit("select:year");
+        break;
+      }
+      case DATE_PICKER_MODE.month: {
+        emit("select:month");
+        break;
+      }
+      case DATE_PICKER_MODE.date: {
+        emit("select:day");
+        break;
+      }
     }
   }
 );

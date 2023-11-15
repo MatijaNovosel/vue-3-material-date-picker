@@ -89,6 +89,39 @@ const changeLocale = () => {
 
 ## 🎺 Events
 
-| Name     | Type                     | Description                       |
-| -------- | ------------------------ | --------------------------------- |
-| `change` | `(date: string) => void` | Triggered when a date is selected |
+| Name           | Type                     | Description                                       |
+| -------------- | ------------------------ | ------------------------------------------------- |
+| `change`       | `(date: string) => void` | Triggered when a date is selected                 |
+| `select:year`  | `() => void`             | Triggered when the user selects the year portion  |
+| `select:month` | `() => void`             | Triggered when the user selects the month portion |
+| `select:day`   | `() => void`             | Triggered when the user selects the day portion   |
+
+## 🧩 Slots
+
+### title
+
+Use this slot if you want to override the date picke title, an example being:
+
+```vue
+<date-picker v-model="date">
+  <template
+    #title="{
+      date,
+      selectYears,
+      selectMonths,
+      selectDays,
+    }"
+  >
+    {{ date }}
+  </template>
+</date-picker>
+```
+
+There are a few props being exposed:
+
+| Name           | Type       | Default | Description                                                     |
+| -------------- | ---------- | ------- | --------------------------------------------------------------- |
+| `date`         | `string`   | null    | Currently selected date                                         |
+| `selectYears`  | `function` | N/A     | Helper function used for triggering the selection of the years  |
+| `selectMonths` | `function` | N/A     | Helper function used for triggering the selection of the months |
+| `selectDays`   | `function` | N/A     | Helper function used for triggering the selection of the days   |

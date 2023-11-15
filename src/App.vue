@@ -10,7 +10,9 @@
     <div style="margin-left: 30px">
       {{ JSON.stringify(date) }}
       <button @click="changeDate" style="margin-left: 5px">Change</button>
-      <button @click="changeLocale" style="margin-left: 5px">Change ss</button>
+      <button @click="changeLocale" style="margin-left: 5px">
+        Change locale
+      </button>
       <input type="checkbox" v-model="multiple" />
     </div>
   </div>
