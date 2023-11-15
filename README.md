@@ -100,7 +100,7 @@ const changeLocale = () => {
 
 ### title
 
-Use this slot if you want to override the date picke title, an example being:
+Use this slot if you want to override the date picker title, an example being:
 
 ```vue
 <date-picker v-model="date">
