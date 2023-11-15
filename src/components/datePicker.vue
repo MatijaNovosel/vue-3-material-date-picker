@@ -106,6 +106,7 @@ const props = withDefaults(
     readonly?: boolean;
     showCurrent?: boolean | string;
     selectedItemsTextFormatter?: (n: number) => string;
+    titleTextFormatter?: (date: string) => string;
     showAdjacentMonths?: boolean;
     modelValue: DatePickerValue;
     locale?: string;
@@ -125,11 +126,13 @@ const styles = computed(() => ({
   width: props.fullWidth ? undefined : convertToUnit(props.width || 290)
 }));
 
-const pickerTitle = computed(() =>
-  (formatters.value.titleDate as (value: any) => string)!(
-    isMultiple.value ? multipleValue.value : props.modelValue
-  )
-);
+const pickerTitle = computed(() => {
+  if (props.titleTextFormatter && !isMultiple.value) {
+    return props.titleTextFormatter(props.modelValue as string);
+  }
+  const formatter = formatters.value.titleDate as (value: any) => string;
+  return formatter!(isMultiple.value ? multipleValue.value : props.modelValue);
+});
 
 const now = new Date();
 

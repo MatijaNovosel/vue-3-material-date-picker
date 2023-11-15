@@ -85,6 +85,7 @@ const changeLocale = () => {
 | `multiple`                      | `boolean`                              | false               | Allow the selection of multiple dates                                                                            |
 | `allowed-dates`                 | `function ((date: string) => boolean)` | null                | Restricts which dates can be selected                                                                            |
 | `selected-items-text-formatter` | `function ((n: number) => string)`     | Selected ${n} dates | Function for formatting the text for selecting multiple dates                                                    |
+| `title-text-formatter`          | `function ((date: string) => string)`  | undefined           | Function for formatting the title text                                                                           |
 
 ## 🎺 Events
 
