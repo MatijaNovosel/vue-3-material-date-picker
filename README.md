@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/MatijaNovosel/vue-3-material-date-picker/assets/36193643/952fa1cd-0ced-41f4-9b2e-933be46b1929" />
+  <img src="https://github.com/MatijaNovosel/vue-3-material-date-picker/assets/36193643/424ba8ee-5745-4efd-a411-80449424d149" />
 </div>
 
 <h1 align=center>Vue material date picker</h1>
@@ -16,8 +16,22 @@ yarn add vue-3-material-date-picker
 ## ✨ Features
 
 - Multiple date selection
+
+<div align="center">
+  <img src="https://github.com/MatijaNovosel/vue-3-material-date-picker/assets/36193643/2ce3f107-2213-47fa-8ad7-2f875cdc6f78" />
+</div>
+
 - Customizable and themable
+
+<div align="center">
+  <img src="https://github.com/MatijaNovosel/vue-3-material-date-picker/assets/36193643/f1c46ab5-aba4-4a36-ba2c-dce3a32aef19" />
+</div>
+
 - Can be changed to any locale on the fly
+
+<div align="center">
+  <img src="https://github.com/MatijaNovosel/vue-3-material-date-picker/assets/36193643/2d6270b5-e356-4404-ba19-668fd54a0c4b" />
+</div>
 
 ## 📺 Demo
 
