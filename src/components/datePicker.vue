@@ -2,7 +2,7 @@
   <div :style="styles" class="date-picker">
     <date-picker-title
       v-if="!noTitle && !slots.title"
-      :color="color"
+      :color="props.color"
       :date="pickerTitle"
       :year="paddedTableYear"
       :selecting-year="state.internalActivePicker === DATE_PICKER_MODE.year"
@@ -24,7 +24,7 @@
           state.internalActivePicker
         )
       "
-      :color="color"
+      :color="props.color"
       :current-locale="props.locale"
       :value="
         state.internalActivePicker === DATE_PICKER_MODE.date
@@ -50,21 +50,22 @@
       :disabled="props.disabled"
       :min="props.min"
       :max="props.max"
-      :color="color"
+      :color="props.color"
       :table-date="tableDate"
+      :events="props.events"
       @input="dateClick"
     />
     <date-picker-month-table
       v-else-if="state.internalActivePicker === DATE_PICKER_MODE.month"
       :value="selectedMonths"
-      :color="color"
+      :color="props.color"
       :table-date="paddedTableYear"
       @input="monthClick"
     />
     <date-picker-years
       @input="yearClick"
       :value="tableYear"
-      :color="color"
+      :color="props.color"
       v-else
     />
   </div>
@@ -93,7 +94,6 @@ import {
 import {
   DatePickerAllowedDatesFunction,
   DatePickerEventColors,
-  DatePickerEvents,
   DatePickerValue
 } from "./models";
 
@@ -111,7 +111,7 @@ const props = withDefaults(
   defineProps<{
     allowedDates?: DatePickerAllowedDatesFunction;
     disabled?: boolean;
-    events?: DatePickerEvents;
+    events?: string[];
     eventColor?: DatePickerEventColors;
     firstDayOfWeek?: string | number;
     max?: string;

@@ -16,7 +16,12 @@
             @click="dateSelected(d)"
             v-if="d !== ''"
           >
-            {{ formatter!(d) }}
+            <div>
+              {{ formatter!(d) }}
+            </div>
+            <div class="date-picker-table__events" v-if="isEvent(d)">
+              <div class="event" />
+            </div>
           </div>
         </td>
       </tr>
@@ -46,7 +51,7 @@ const props = withDefaults(
     showAdjacentMonths?: boolean;
     allowedDates?: DatePickerAllowedDatesFunction;
     disabled?: boolean;
-    events?: any[] | Function | Object;
+    events?: string[];
     eventColor?: any[] | Function | Object | string;
     range?: boolean;
     readonly?: boolean;
@@ -125,6 +130,13 @@ const isSelected = (value: string) => {
     }
   }
   return value === props.value;
+};
+
+const isEvent = (d: string) => {
+  if (props.events) {
+    return props.events.includes(d);
+  }
+  return false;
 };
 
 const dateSelected = (d: string) => {
@@ -279,4 +291,7 @@ const rows = computed(() => {
 
 .date-picker-table--disabled
   pointer-events: none
+
+.event
+  background-color: #30c330
 </style>
