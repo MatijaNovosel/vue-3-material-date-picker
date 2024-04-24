@@ -23,6 +23,7 @@
   "module": "./dist/vue-3-material-date-picker.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/vue-3-material-date-picker.js",
       "require": "./dist/vue-3-material-date-picker.umd.cjs"
     },
@@ -31,7 +32,6 @@
       "require": "./dist/style.css"
     }
   },
-  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
